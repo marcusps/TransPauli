@@ -4,6 +4,10 @@ import csv
 import string
 
 def string2pauli( str ):
+    """
+    This function converts an ASCII string into a multi-qubit Pauli
+    operator.
+    """
     M = { '1' : 0, 'X' : 1, 'Z' : 2, 'Y' : 3 }
     P = { 'i' : 1, '-' : 2, '-i' : 3 }
     if str[0:1] == '-i':
@@ -194,6 +198,17 @@ class PauliOp:
                     funcs[ cmd ]( *arg )
 
 if __name__ == '__main__':
+    """
+    Main execution function.
+
+    It will read a Pauli operator from the command line,
+    as well as the path of a QASM file describing the 
+    circuit/unitary  which acts on the Pauli operator.
+
+    The initial operator can be thought of as a stabilizer
+    operator of the input, and we are computing how this 
+    stabilizer operator evolves.
+    """
     p = string2pauli( '+1Y1XZ' )
     print p.string()
     p.execute_qasm('five.qasm')
